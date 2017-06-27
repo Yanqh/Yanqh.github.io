@@ -1,0 +1,883 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Life and Code | Yanqh">
+    <title>Machine Learning Week9 - Life and Code | Yanqh</title>
+    <meta name="author" content="Yanqh">
+    
+        <meta name="keywords" content="Yanqh,Coder,Machine Learning">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="这一周主要学习了异常检测（Anomaly Detection）和推荐系统（Recommender System），这一周的课听起来不是很难，但推荐系统在做起来的时候，似乎没那么简单。">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Machine Learning Week9">
+<meta property="og:url" content="http://yanqh.com/2017/06/12/MachineLearning-Week9/index.html">
+<meta property="og:site_name" content="Life and Code | Yanqh">
+<meta property="og:description" content="这一周主要学习了异常检测（Anomaly Detection）和推荐系统（Recommender System），这一周的课听起来不是很难，但推荐系统在做起来的时候，似乎没那么简单。">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning9Anomaly1">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning9Anomaly2.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning9GaussianDistribution1.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning9Gaussian.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian1.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian2.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian3.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian4.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian5.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian6.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian7.png">
+<meta property="og:updated_time" content="2017-06-26T14:55:17.122Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Machine Learning Week9">
+<meta name="twitter:description" content="这一周主要学习了异常检测（Anomaly Detection）和推荐系统（Recommender System），这一周的课听起来不是很难，但推荐系统在做起来的时候，似乎没那么简单。">
+<meta name="twitter:image" content="http://yanqh.com/assets/images/MachineLearning9Anomaly1">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Life and Code | Yanqh</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yanqh</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>You don’t need to be accepted by others. You need to accept yourself.</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/Yanqh" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Machine Learning Week9
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-06-12T10:48:08+08:00">
+	
+		    Jun 12, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>这一周主要学习了异常检测（Anomaly Detection）和推荐系统（Recommender System），这一周的课听起来不是很难，但推荐系统在做起来的时候，似乎没那么简单。</p>
+<a id="more"></a>
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#异常检测"><span class="toc-text">异常检测</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#密度检测（Density-Estimation）"><span class="toc-text">密度检测（Density Estimation）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公式"><span class="toc-text">公式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯-正态分布（Gaussian-Normal-Distribution）"><span class="toc-text">高斯/正态分布（Gaussian/Normal Distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#密度检测公式"><span class="toc-text">密度检测公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常检测算法"><span class="toc-text">异常检测算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发和评价一个异常检测系统"><span class="toc-text">开发和评价一个异常检测系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#开发"><span class="toc-text">开发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#评价"><span class="toc-text">评价</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异常检测和监督性学习"><span class="toc-text">异常检测和监督性学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特征量的选择"><span class="toc-text">特征量的选择</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多维高斯分布（Multivariate-Gaussian-distribution）"><span class="toc-text">多维高斯分布（Multivariate Gaussian distribution）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实现过程"><span class="toc-text">实现过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参数影响"><span class="toc-text">参数影响</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#与原始模型的比较"><span class="toc-text">与原始模型的比较</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#推荐系统"><span class="toc-text">推荐系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#对于求用户参数"><span class="toc-text">对于求用户参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优化目标"><span class="toc-text">优化目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降"><span class="toc-text">梯度下降</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对于求电影特征量"><span class="toc-text">对于求电影特征量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化目标-1"><span class="toc-text">优化目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协同过滤算法"><span class="toc-text">协同过滤算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本周总结"><span class="toc-text">本周总结</span></a></li></ol>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>异常检测主要用于非监督性学习，但做法很像监督性学习，教授用飞行器的发动机来举例，如下图：<br></div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning9Anomaly1" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap"><br>这里的异常数据我们如果使用PCA是没有问题的，但我们用图画出来之后，这个数据太过孤立，所以可能是不正常的。那么我们还需要进一步的判断这个数据是否真的有问题。</p>
+<h2 id="密度检测（Density-Estimation）"><a href="#密度检测（Density-Estimation）" class="headerlink" title="密度检测（Density Estimation）"></a>密度检测（Density Estimation）</h2><p>我们新建立一个模型 \(p(x)\)，用来估算这个数据集中是的密度分布，公式为：$$p(x_{test}) &lt; \epsilon \rightarrow Anomaly$$ $$p(x_{test}) \ge \epsilon \rightarrow OK$$<br>如下图，从数据集中心向外的密度是有大变小的，属于中心周围的数据是正常的，而距离中心的位置越远，越不正常。<br></div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning9Anomaly2.png" 图片来自coursera""="" alt=""><span class="caption"></span></div><div class="main-content-wrap"></p>
+<h2 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h2><h3 id="高斯-正态分布（Gaussian-Normal-Distribution）"><a href="#高斯-正态分布（Gaussian-Normal-Distribution）" class="headerlink" title="高斯/正态分布（Gaussian/Normal Distribution）"></a>高斯/正态分布（Gaussian/Normal Distribution）</h3><p>高斯分布也叫正态分布，假设 \(x \in \mathbb{R}\)，如果 \(x\) 服从期望值为 \(\mu\) ，方差为 \(\sigma^2\)的高斯分布，则：$$x \sim N(\mu, \sigma^2)$$ $$p(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(x - \mu)^2}{2\sigma^2})$$</p>
+<p>可以通过下面的图来理解高斯分布：<br></div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning9GaussianDistribution1.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap"></p>
+<h3 id="密度检测公式"><a href="#密度检测公式" class="headerlink" title="密度检测公式"></a>密度检测公式</h3><p>如果给定数据集 \({x^{(1)},x^{(1)},\dots,x^{(m)}}\)，其中 \(x \in \mathbb{R^n}\) 对于 \(x\) 我们有：$$p(x)=p(x_1;\mu_1, \sigma_1^2) \times p(x_2;\mu_2, \sigma_2^2) \times \dots \times p(x_n;\mu_n, \sigma_n^2) = \prod_{j=1}^np(x_j;\mu_j, \sigma_j^2)$$ </p>
+<p>那么我们要保证：$$x_i \sim N(\mu_n, \sigma_n^2)$$</p>
+<div class="alert info no-icon"><p>这里的样本不一定都是服从高斯分布的，但是我们可以使用变化特征量的方式来让数据符合高斯分布的特点。后边也会提到。</p>
+</div>
+<h3 id="异常检测算法"><a href="#异常检测算法" class="headerlink" title="异常检测算法"></a>异常检测算法</h3><ol>
+<li>从数据集 \(X = {x^{(1)},x^{(1)},\dots,x^{(m)}}\) ，其中 \(x \in \mathbb{R^n}\)，假设特征量 \(x_i\) 是出现异常的原因。</li>
+<li>拟合参数 \(\mu_1,\dots,\mu_n,\sigma_1^2,\dots,\sigma_n^2\)：$$\mu_j = \frac{1}{m}\sum_{i=1}^mx_j^{(i)}$$ $$\sigma_j^2 = \frac{1}{m}\sum_{i=1}^{m}(x_j^{(i)}-\mu_j)^2$$</li>
+<li>那么拿到新的样本 \(x\)，计算 \(p(x)\)：$$p(x)=\prod_{j=1}^np(x_j;\mu_j, \sigma_j^2)=\prod_{j=1}^n\frac{1}{\sqrt{2\pi}\sigma_j}exp(-\frac{(x_j - \mu_j)^2}{2\sigma_j^2})$$ </li>
+<li>判断是否为异常数据：$$p(x_{test}) &lt; \epsilon \rightarrow Anomaly$$ $$p(x_{test}) \ge \epsilon \rightarrow OK$$</li>
+</ol>
+<h2 id="开发和评价一个异常检测系统"><a href="#开发和评价一个异常检测系统" class="headerlink" title="开发和评价一个异常检测系统"></a>开发和评价一个异常检测系统</h2><h3 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h3><p>当开发一个学习算法时，如果我们有一个评价我们学习算法的标准的时候，做出正确的决定是比较简单的。假设我们有一些带有标签的数据，当然这里面包含了正常数据和异常数据（\(y = 0\) 为正常数据，\(y = 1\) 为异常数据）。</p>
+<p>我们用飞行器的引擎为例：</p>
+<ul>
+<li>10000 个正常的引擎</li>
+<li>20    个异常引擎</li>
+</ul>
+<p>那么我们可以这样来分配我们的样本：</p>
+<ul>
+<li>训练集：6000个正常引擎</li>
+<li>交叉验证集：2000个正常引擎，10个异常引擎</li>
+<li>测试集：2000个正常引擎，10个异常引擎</li>
+</ul>
+<p>或者，我们还可以这样分配我们的样本，交叉验证集和测试集是同一个是没有问题的：</p>
+<ul>
+<li>训练集：6000个正常引擎</li>
+<li>交叉验证集：4000个正常引擎，20个异常引擎</li>
+<li>测试集：4000个正常引擎，20个异常引擎</li>
+</ul>
+<h3 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h3><ol>
+<li>在数据集 \({x^{(1)},x^{(1)},\dots,x^{(m)}}\) 拟合 \(p(x)\) </li>
+<li>在交叉验证集或者测试集长预测：$$ y = \left[1 \text{  如果 p(x)} &lt; \epsilon(异常)\atop 0 \text{  如果 p(x)} \ge \epsilon(正常)\right.$$</li>
+<li>算法评估<ul>
+<li>True positive/false positive/false negative/true negative</li>
+<li>查准率、召回率</li>
+<li>\(F_1\) 值</li>
+</ul>
+</li>
+<li>也可以用交叉验证集来选择 \(epsilon\)</li>
+</ol>
+<h2 id="异常检测和监督性学习"><a href="#异常检测和监督性学习" class="headerlink" title="异常检测和监督性学习"></a>异常检测和监督性学习</h2><p>使用异常检测的特点：<br>少量的正样本（20个以内），大量的负样本，异常样本的类型各不相同，难以用学习方法去预测异常样本的样子，异常样本的特征也是我们从未见过的。</p>
+<p>异常检测的例子：<br>欺诈检测、制造业、数据监控中心……</p>
+<p>使用监督性学习的特点：</p>
+<p>大量的正样本和负样本，足够的正样本来让学习算法区分什么是正样本，什么是负样本。</p>
+<p>监督性学习的例子：</p>
+<p>垃圾邮件检测、天气预测、癌症分类……</p>
+<h2 id="特征量的选择"><a href="#特征量的选择" class="headerlink" title="特征量的选择"></a>特征量的选择</h2><p>如果你选择的特征量并不符合高斯分布，那么就需要对数据进行处理：<br></div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning9Gaussian.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap"></p>
+<h1 id="多维高斯分布（Multivariate-Gaussian-distribution）"><a href="#多维高斯分布（Multivariate-Gaussian-distribution）" class="headerlink" title="多维高斯分布（Multivariate Gaussian distribution）"></a>多维高斯分布（Multivariate Gaussian distribution）</h1><p>用下图可以看出使用多维高斯分布的必要，图中的蓝色的样本在原始的高斯分布是没有问题的，但是根据图上的信息来看，这两个数据和其他红色的数据不太一样，所以可能存在问题，也就是说我们的原始的高斯分布已经不能完全适用于这个训练集了，这时候我们可以试试多维高斯分布。至于特征量我们可以使用 \(\frac{x_1}{x_2}\) 等来添加。<br></div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian1.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap"></p>
+<h2 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h2><ol>
+<li>参数拟合，通过给定的 \({x^{(1)},x^{(1)},\dots,x^{(m)}}\)，计算：$$\mu = \frac{1}{m}\sum_{i=1}^mx^{(i)}$$ $$\Sigma = \frac{1}{m}\sum_{i=1}^m(x^{i}-\mu)(x^{(i)}-\mu)^T$$ </li>
+<li>拿到新的数据，计算： $$p(x) = \frac{1}{(2\pi)^{(\frac{n}{2})}|\Sigma|^2}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{(-1)}(x-\mu))$$</li>
+<li>如果 \(p(x) &lt; \epsilon\) 标记为异常。</li>
+</ol>
+<h2 id="参数影响"><a href="#参数影响" class="headerlink" title="参数影响"></a>参数影响</h2></div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian2.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap">
+</div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian3.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap">
+</div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian4.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap">
+</div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian5.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap">
+</div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian6.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap">
+</div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning9MultivariateGaussian7.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap">
+<h2 id="与原始模型的比较"><a href="#与原始模型的比较" class="headerlink" title="与原始模型的比较"></a>与原始模型的比较</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">原始模型</th>
+<th style="text-align:center">多维高斯分布</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">手动结合特征量</td>
+<td style="text-align:center">自动结合特征量</td>
+</tr>
+<tr>
+<td style="text-align:center">计算代价低</td>
+<td style="text-align:center">计算代价高</td>
+</tr>
+<tr>
+<td style="text-align:center">即使 \(m\) 很小也可以运行</td>
+<td style="text-align:center">必须 \(m &gt; n\)</td>
+</tr>
+</tbody>
+</table>
+<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><p>推荐系统在我们的日常中有很多，比如给你推荐哪个电影，推荐哪本书，这里先从几个命名开始：</p>
+<ul>
+<li>\(n_u\) 表示用户的数量</li>
+<li>\(n_m\) 表示电影的数量</li>
+<li>\(r(i,j) = 1\) 表示用户 \(j\) 评价了电影 \(i\)</li>
+<li>\(y^{(i,j)}\) 表示用户 \(j\) 对电影 \(i\) 的评分（假设 \(r(i,j) = 1\)）</li>
+<li>\(\theta^{(j)}\) 表示用户 \(j\) 的参数向量</li>
+<li>\(x^{(i)}\) 表示电影 \(i\) 的特征向量</li>
+<li>\(m^{(j)}\) 表示用户 \(j\) 评论过的电影数量</li>
+</ul>
+<p>对于用户 \(j\) 对电影 \(i\) 的评分可以写为 \((\theta^{(j)})^T(x^{(i)})\)</p>
+<h2 id="对于求用户参数"><a href="#对于求用户参数" class="headerlink" title="对于求用户参数"></a>对于求用户参数</h2><h3 id="优化目标"><a href="#优化目标" class="headerlink" title="优化目标"></a>优化目标</h3><p>$$min_{\theta^{1},\dots,\theta^{n_u}} \frac{1}{2}\sum_{j=1}^{n_u}\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)} - y^{(i,j)})^2 + \frac{\lambda}{2}\sum_{j=1}^{n_u}\sum_{k=1}^n(\theta_k^{(j)})^2$$</p>
+<div class="alert info no-icon"><p>我对 \(i:r(i,j)=1\) 的理解为，只计算所有用户 \(j\) 评论过的电影。</p>
+</div>
+<h3 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h3><p>$$\theta_k^{(i)} := \theta_k^{(i)} - \alpha\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)} -y^{(i,j)})x_k^{(i)} 当 k = 0 $$</p>
+<p>$$\theta_k^{(i)} := \theta_k^{(i)} - \alpha(\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)} -y^{(i,j)})x_k^{(i)} + \lambda\theta_k^{(j)}) 当 k \neq 0 $$</p>
+<h2 id="对于求电影特征量"><a href="#对于求电影特征量" class="headerlink" title="对于求电影特征量"></a>对于求电影特征量</h2><h2 id="优化目标-1"><a href="#优化目标-1" class="headerlink" title="优化目标"></a>优化目标</h2><p>$$min_{x^{1},\dots,x^{n_m}} \frac{1}{2}\sum_{j=1}^{n_m}\sum_{j:r(i,j)=1}((\theta^{(j)})^Tx^{(i)} - y^{(i,j)})^2 + \frac{\lambda}{2}\sum_{i=1}^{n_u}\sum_{k=1}^n(x_k^{(i)})^2$$</p>
+<div class="alert danger no-icon"><p>这里教授没有说梯度下降的问题，直接进入了协同过滤（Collaborative filtering）</p>
+</div>
+<h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><ol>
+<li>随机初始化较小的 \(x^{(1)},x^{(1)},\dots,x^{(n_m)},\theta^{(1)},\dots,\theta^{(n_u)}\) </li>
+<li>实现代价函数：$$J(x^{(1)},x^{(1)},\dots,x^{(n_m)},\theta^{(1)},\dots,\theta^{(n_u)}) = \frac{1}{2}\sum_{(i,j):r(i,j)=1}((\theta^{(j)})^Tx^{(i)} - y^{(i,j)})^2+\frac{\lambda}{2}\sum_{i=1}^{n_m}\sum_{k=1}^{n}(x_k^{(i)})^2 + \frac{\lambda}{2}\sum_{j=1}^{n_u}\sum_{k=1}^n(\theta_k^{(j)})^2$$</li>
+<li>最优化代价函数，计算：$$x_k^{(i)} := x_k^{(i)} - \alpha(\sum_{j:r(i,j)=1}((\theta^{(j)})^Tx^{(i)} -y^{(i,j)})\theta_k^{(j)} + \lambda x_k^{(i)})$$ $$\theta_k^{(j)} := \theta_k^{(j)} - \alpha \left(\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)} -y^{(i,j)})x_k^{(i)} + \lambda\theta_k^{(j)}\right)$$</li>
+<li>利用 \((\theta^{(j)})^T(x^{(i)})\) 来预测用户 \(j\) 对电影 \(i\) 的评分</li>
+</ol>
+<h1 id="本周总结"><a href="#本周总结" class="headerlink" title="本周总结"></a>本周总结</h1><p>在最后我没有加上向量化和实现细节，我觉得已经太多的东西了，我在做题的时候，遇到了问题，在<strong>Github</strong> 上看了一些别人的做法，发现很多很优雅的算法，所以我觉得中周文字的东西虽然很多，但实际的东西还是在做题上，这是最后一个有编程题的课，接下来会去上其他的课。</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Machine-Learning/">Machine Learning</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/14/Linux-Install-Ubuntu-Windows10/"  data-tooltip="Windows10和Ubuntu16.04双系统">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/07/2017高考随笔/" data-tooltip="2017高考随笔">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2017/06/12/MachineLearning-Week9/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2017/06/12/MachineLearning-Week9/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2017/06/12/MachineLearning-Week9/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Yanqh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/14/Linux-Install-Ubuntu-Windows10/"  data-tooltip="Windows10和Ubuntu16.04双系统">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/07/2017高考随笔/" data-tooltip="2017高考随笔">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2017/06/12/MachineLearning-Week9/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2017/06/12/MachineLearning-Week9/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2017/06/12/MachineLearning-Week9/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2017/06/12/MachineLearning-Week9/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2017/06/12/MachineLearning-Week9/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2017/06/12/MachineLearning-Week9/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Yanqh</h4>
+        
+            <div id="about-card-bio"><p>You don’t need to be accepted by others. You need to accept yourself.</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Elegant Coder</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Wuhan.China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/19/欲罢不能的主题：Tranquilpeak/">
+                            <h3 class="media-heading">欲罢不能的主题：Tranquilpeak</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>遇到一个好的主题实在不易，以前使用Jekyll，倒不是平台不好，但是自己没有一点点的前端知识储备，所有遇到喜欢但是功能不全的主题，总是心有余，力不足。没有好的主题，写的东西也很少，所以一直在寻找好的主题，也在计划慢慢开始学一下前端，做自己喜欢的东西出来，不为别的，只为喜欢，看得舒心。但也没有放弃寻找，终于在Hexo中找到了欲罢不能的主题：Tranquilpeak<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/27/修饰符的使用笔记/">
+                            <h3 class="media-heading">修饰符的使用笔记</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 27, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>细节决定成败，基础决定上层建筑，为了更好、更安全的代码结构，熟悉修饰符的作用是必要的。这里从Java和Swift两种语言来看修饰符的作用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/28/swift构造器/">
+                            <h3 class="media-heading">Swift的构造器的知识点</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 28, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>熟悉swift的构造器用法是必须的，这样才能写出方便、快捷、高效、强大的类。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/29/Java中的数组/">
+                            <h3 class="media-heading">Java中的数组</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 29, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Java中的数组和Swift以及OC中的数组不同，原以为会和他们一样会有可变和不可变的概念，但是并没有，那简单了？但Java身后却是一个庞大、使用的集合家族。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/12/07/Java的类和对象/">
+                            <h3 class="media-heading">Java的类和对象</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 7, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Java的类和对象与Swift的类和对象有很多东西都是差不多的，但是也有不同的地方需要注意。写在这里以后查看。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/12/15/响应者链条的原理和实践/">
+                            <h3 class="media-heading">响应者链条的原理和实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>对于响应者链，底层虽然不甚了了，但是基本的原理和实践还是要知道的。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/02/20/IOS运行时机制/">
+                            <h3 class="media-heading">IOS运行时机制</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 20, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Runtime，运行时机制，是面试时用到比较多的概念，在理解面向对象以及实际开发中也有重要的作用，这里用概念和代码的方式记录运行时机制的简单理解和应用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/24/MachineLearning-Starting/">
+                            <img class="media-image" src="http://yanqh.com/assets/images/MachineLearningStarting.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/24/MachineLearning-Starting/">
+                            <h3 class="media-heading">Machine Learning And Me</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 24, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>第一次了解到机器学习是在新闻上看到Alpha Go打败了围棋高手，那时候觉得机器会思考是一件很酷的事，也觉得离我还很遥远。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/25/MachineLearning-Week1/">
+                            <h3 class="media-heading">Machine Learning Week1</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 25, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>我对机器学习的理解是：让程序通过学习获得判断的能力，以便程序能在各种情况执行正确的操作。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/05/04/Live-YuHua/">
+                            <img class="media-image" src="http://yanqh.com/assets/images/Live_Yuhua.jpeg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/05/04/Live-YuHua/">
+                            <h3 class="media-heading">我读余华的《活着》</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    May 4, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>人为什么活着，活着是什么？</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                26 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://yanqh.com/2017/06/12/MachineLearning-Week9/';
+                 
+                    this.page.identifier = '2017/06/12/MachineLearning-Week9/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'Yanqh';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('R3K64VCLX5', '45317a68c49dfa9591ee80d5e2a3b9c0');
+        var algoliaIndex = algoliaClient.initIndex('yanqh');
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    </body>
+</html>

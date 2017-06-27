@@ -1,0 +1,803 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Life and Code | Yanqh">
+    <title>Machine Learning Week8 - Life and Code | Yanqh</title>
+    <meta name="author" content="Yanqh">
+    
+        <meta name="keywords" content="Yanqh,Coder,Machine Learning">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="这一周主要学习了非监督性学习的算法K均值（K-Mean）、维度约减（Dimensionality Reduction）和主成分分析（Principal Components Analysis, PCA)。">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Machine Learning Week8">
+<meta property="og:url" content="http://yanqh.com/2017/06/05/MachineLearning-Week8/index.html">
+<meta property="og:site_name" content="Life and Code | Yanqh">
+<meta property="og:description" content="这一周主要学习了非监督性学习的算法K均值（K-Mean）、维度约减（Dimensionality Reduction）和主成分分析（Principal Components Analysis, PCA)。">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning8K_Mean.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning82D.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning83D.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning8PCA.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/MachineLearning8SVD.png">
+<meta property="og:updated_time" content="2017-06-26T14:55:17.122Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Machine Learning Week8">
+<meta name="twitter:description" content="这一周主要学习了非监督性学习的算法K均值（K-Mean）、维度约减（Dimensionality Reduction）和主成分分析（Principal Components Analysis, PCA)。">
+<meta name="twitter:image" content="http://yanqh.com/assets/images/MachineLearning8K_Mean.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Life and Code | Yanqh</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yanqh</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>You don’t need to be accepted by others. You need to accept yourself.</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/Yanqh" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Machine Learning Week8
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-06-05T15:17:36+08:00">
+	
+		    Jun 05, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>这一周主要学习了非监督性学习的算法K均值（K-Mean）、维度约减（Dimensionality Reduction）和主成分分析（Principal Components Analysis, PCA)。</p>
+<a id="more"></a>
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#K均值"><span class="toc-text">K均值</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法的理解"><span class="toc-text">算法的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法的实现"><span class="toc-text">算法的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#随机初始化K"><span class="toc-text">随机初始化K</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#维度约减"><span class="toc-text">维度约减</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主成分分析-PCA"><span class="toc-text">主成分分析(PCA)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现过程"><span class="toc-text">实现过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K维度如何选择"><span class="toc-text">K维度如何选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PCA的其他应用"><span class="toc-text">PCA的其他应用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本周总结"><span class="toc-text">本周总结</span></a></li></ol>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h1 id="K均值"><a href="#K均值" class="headerlink" title="K均值"></a>K均值</h1><p>K均值算法的目标是将有紧密关系的子集（簇）聚集起来，这种方法是一种迭代方法，算法输入的是簇的个数K，训练集是无标签的数据集。</p>
+<h2 id="算法的理解"><a href="#算法的理解" class="headerlink" title="算法的理解"></a>算法的理解</h2><p>K均值算法分为两步，第一步是进行簇分类，我们要遍历所有的样本，根据每个样本到聚类中心点的距离，将样本聚类到没最短距离的簇。第二步是移动聚类中心，如果聚类中心的并不是这一类的中心点，所以在聚类之后还有进行移动，以致中心点的位置处于中心。</p>
+</div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning8K_Mean.png" alt="K-Mean"><span class="caption">K-Mean</span></div><div class="main-content-wrap">
+<h2 id="算法的实现"><a href="#算法的实现" class="headerlink" title="算法的实现"></a>算法的实现</h2><ol>
+<li>随机初始化K个簇中心点\(\mu_1,\mu_1,\dots,\mu_K \in \mathbb{R}^n\)</li>
+<li>算法核心：$$\begin{align}  \text{重复直到收敛：} &amp; \lbrace \newline &amp; c^{(i)} := j，min ||x^{(i)} - \mu_j||^2 \text{，其中 }i \in [1, m] \newline &amp; \mu_k := \frac{1}{|C_k|}\sum_{i \in C_k}^mx^{(i)} \text{，其中 }k \in [1,K]\newline &amp; \rbrace \end{align}$$</li>
+</ol>
+<p>符号解释：</p>
+<ul>
+<li>\(c^{(i)}\) 表示样本 \(x^{(i)}\) 所归属的簇索引</li>
+<li>\(\mu_k\) 表示第 \(k\) 个簇聚类中心</li>
+<li>\(\mu_{c^(i)}\) 表示样本 \(x^{(i)}\) 所归属的簇</li>
+</ul>
+<p>优化目标：$$minJ(c^{(1)},\dots,c^{(m)},\mu_1,\dots,\mu_k)=\frac{1}{m}\sum_{i=1}^{m} ||x^{(i)} - \mu_{c^{(i)}}||^2$$</p>
+<h2 id="随机初始化K"><a href="#随机初始化K" class="headerlink" title="随机初始化K"></a>随机初始化K</h2><p>选择K的值没有正确的方法，有的是随机K，然后多次聚类求最小的 J。也有的使用肘部法则（Elbow Method），但这里也不一定有作用，所以教授在最后说可以使用细化的目标来分类，比如你想分类T-shirt的尺寸，你可以分类K=3（S,M,L）或者K=5(XS,S,M,L,XL)。</p>
+<h1 id="维度约减"><a href="#维度约减" class="headerlink" title="维度约减"></a>维度约减</h1><p>维度约减是为了压缩数据，节省内存和磁盘，使特征量的维度降低来加速算法的效率，也适用于可视化数据（1D/2D/3D）。主成分分析是常用的降维方法。<br>从2D到1D:<br></div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning82D.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap"><br>从3D到2D:<br></div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning83D.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap"></p>
+<h2 id="主成分分析-PCA"><a href="#主成分分析-PCA" class="headerlink" title="主成分分析(PCA)"></a>主成分分析(PCA)</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>PCA的目的是达到降维的目的，以2D降维到1D为例，是为了将数据点投影到直线上，而且要是投影的距离最短，所以如下图，PCA会选择红色的直线而不是品红的直线：<br></div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning8PCA.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap"></p>
+<h3 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h3><ol>
+<li>数据预处理<ul>
+<li>求均值 $$\mu_j = \frac{1}{m}\sum_{i=1}^mx_j^{(i)}$$     </li>
+<li>特征量替换 $$x_j^{(i)}=x_j^{(i)}-\mu_j$$</li>
+<li>如果特征量之间的差距比较大，还需要做特征缩放，其中\(s_j\) 为平方差 $$x_j^{(i)}=\frac{x_j^{(i)}-\mu_j}{s_j}$$</li>
+</ul>
+</li>
+<li>求解协方差矩阵 $$\Sigma=\frac{1}{m}\sum_{i=1}^n(x^{(i)})(x^{(i)})^T$$</li>
+<li>SVD求解特征值和特征向量 $$[U,S,V]=svd(\Sigma)$$</li>
+<li>此时，\(\mu^{(i)} \in \mathbb{R}^n\)我们得到的 $$U = \left[\mu^{(1)},\mu^{(2)},\dots,\mu^{(n)},\right] \in \mathbb{R}^{n \times n}$$</li>
+<li>而我们需要的值是k维，所以还需要截取 $$U_{reduce} = U(:, 1:k)$$</li>
+<li>那么新的k维的特征量数据集为：$$z=U_{reduce}^Tx，其中x\in\mathbb{R}^n，不包含x_0=1$$</li>
+<li>使用新的特征量带入到学习算法。</li>
+</ol>
+<h3 id="K维度如何选择"><a href="#K维度如何选择" class="headerlink" title="K维度如何选择"></a>K维度如何选择</h3><p>我们注意到在SVD的返回值中还有一个值S矩阵：<br></div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/MachineLearning8SVD.png" alt="图片来自Coursera"><span class="caption">图片来自Coursera</span></div><div class="main-content-wrap"></p>
+<p>那么我们可以这样算 k：$$\frac{\sum_{i=1}^kS_{ii}}{\sum_{i=1}^mS_{ii}} \geq 0.99，循环取得最小的k$$</p>
+<p>这里的0.99叫做保留了99%的差异，这里的可以修改的如：95%、90%等。</p>
+<h3 id="PCA的其他应用"><a href="#PCA的其他应用" class="headerlink" title="PCA的其他应用"></a>PCA的其他应用</h3><p>PCA也能应用在监督性学习，是用来降维，但是不能用来解决过拟合的问题（我也没有做过，只是记录）。</p>
+<h1 id="本周总结"><a href="#本周总结" class="headerlink" title="本周总结"></a>本周总结</h1><p>这一周学习了两个算法，感觉用的最多的是和非监督性学习有关，做完了练习题，其实感觉现在的东西没有之前那么难了，也可能是没有理解透，以后遇到了相关的问题再回来看吧。</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Machine-Learning/">Machine Learning</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/07/2017高考随笔/"  data-tooltip="2017高考随笔">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/03/SuspectX/" data-tooltip="(no title)">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2017/06/05/MachineLearning-Week8/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2017/06/05/MachineLearning-Week8/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2017/06/05/MachineLearning-Week8/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Yanqh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/07/2017高考随笔/"  data-tooltip="2017高考随笔">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/03/SuspectX/" data-tooltip="(no title)">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2017/06/05/MachineLearning-Week8/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2017/06/05/MachineLearning-Week8/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2017/06/05/MachineLearning-Week8/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2017/06/05/MachineLearning-Week8/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2017/06/05/MachineLearning-Week8/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2017/06/05/MachineLearning-Week8/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Yanqh</h4>
+        
+            <div id="about-card-bio"><p>You don’t need to be accepted by others. You need to accept yourself.</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Elegant Coder</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Wuhan.China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/19/欲罢不能的主题：Tranquilpeak/">
+                            <h3 class="media-heading">欲罢不能的主题：Tranquilpeak</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>遇到一个好的主题实在不易，以前使用Jekyll，倒不是平台不好，但是自己没有一点点的前端知识储备，所有遇到喜欢但是功能不全的主题，总是心有余，力不足。没有好的主题，写的东西也很少，所以一直在寻找好的主题，也在计划慢慢开始学一下前端，做自己喜欢的东西出来，不为别的，只为喜欢，看得舒心。但也没有放弃寻找，终于在Hexo中找到了欲罢不能的主题：Tranquilpeak<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/27/修饰符的使用笔记/">
+                            <h3 class="media-heading">修饰符的使用笔记</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 27, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>细节决定成败，基础决定上层建筑，为了更好、更安全的代码结构，熟悉修饰符的作用是必要的。这里从Java和Swift两种语言来看修饰符的作用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/28/swift构造器/">
+                            <h3 class="media-heading">Swift的构造器的知识点</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 28, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>熟悉swift的构造器用法是必须的，这样才能写出方便、快捷、高效、强大的类。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/29/Java中的数组/">
+                            <h3 class="media-heading">Java中的数组</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 29, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Java中的数组和Swift以及OC中的数组不同，原以为会和他们一样会有可变和不可变的概念，但是并没有，那简单了？但Java身后却是一个庞大、使用的集合家族。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/12/07/Java的类和对象/">
+                            <h3 class="media-heading">Java的类和对象</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 7, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Java的类和对象与Swift的类和对象有很多东西都是差不多的，但是也有不同的地方需要注意。写在这里以后查看。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/12/15/响应者链条的原理和实践/">
+                            <h3 class="media-heading">响应者链条的原理和实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>对于响应者链，底层虽然不甚了了，但是基本的原理和实践还是要知道的。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/02/20/IOS运行时机制/">
+                            <h3 class="media-heading">IOS运行时机制</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 20, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Runtime，运行时机制，是面试时用到比较多的概念，在理解面向对象以及实际开发中也有重要的作用，这里用概念和代码的方式记录运行时机制的简单理解和应用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/24/MachineLearning-Starting/">
+                            <img class="media-image" src="http://yanqh.com/assets/images/MachineLearningStarting.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/24/MachineLearning-Starting/">
+                            <h3 class="media-heading">Machine Learning And Me</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 24, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>第一次了解到机器学习是在新闻上看到Alpha Go打败了围棋高手，那时候觉得机器会思考是一件很酷的事，也觉得离我还很遥远。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/25/MachineLearning-Week1/">
+                            <h3 class="media-heading">Machine Learning Week1</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 25, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>我对机器学习的理解是：让程序通过学习获得判断的能力，以便程序能在各种情况执行正确的操作。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/05/04/Live-YuHua/">
+                            <img class="media-image" src="http://yanqh.com/assets/images/Live_Yuhua.jpeg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/05/04/Live-YuHua/">
+                            <h3 class="media-heading">我读余华的《活着》</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    May 4, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>人为什么活着，活着是什么？</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                26 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://yanqh.com/2017/06/05/MachineLearning-Week8/';
+                 
+                    this.page.identifier = '2017/06/05/MachineLearning-Week8/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'Yanqh';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('R3K64VCLX5', '45317a68c49dfa9591ee80d5e2a3b9c0');
+        var algoliaIndex = algoliaClient.initIndex('yanqh');
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    </body>
+</html>

@@ -1,0 +1,827 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Life and Code | Yanqh">
+    <title>Java中的数组 - Life and Code | Yanqh</title>
+    <meta name="author" content="Yanqh">
+    
+        <meta name="keywords" content="Yanqh,Coder,Java,数组">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="Java中的数组和Swift以及OC中的数组不同，原以为会和他们一样会有可变和不可变的概念，但是并没有，那简单了？但Java身后却是一个庞大、使用的集合家族。">
+<meta name="keywords" content="Java,数组">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Java中的数组">
+<meta property="og:url" content="http://yanqh.com/2016/11/29/Java中的数组/index.html">
+<meta property="og:site_name" content="Life and Code | Yanqh">
+<meta property="og:description" content="Java中的数组和Swift以及OC中的数组不同，原以为会和他们一样会有可变和不可变的概念，但是并没有，那简单了？但Java身后却是一个庞大、使用的集合家族。">
+<meta property="og:updated_time" content="2017-06-26T14:55:17.118Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java中的数组">
+<meta name="twitter:description" content="Java中的数组和Swift以及OC中的数组不同，原以为会和他们一样会有可变和不可变的概念，但是并没有，那简单了？但Java身后却是一个庞大、使用的集合家族。">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Life and Code | Yanqh</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yanqh</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>You don’t need to be accepted by others. You need to accept yourself.</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/Yanqh" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Java中的数组
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2016-11-29T20:44:17+08:00">
+	
+		    Nov 29, 2016
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Java/">Java</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>Java中的数组和Swift以及OC中的数组不同，原以为会和他们一样会有可变和不可变的概念，但是并没有，那简单了？但Java身后却是一个庞大、使用的集合家族。</p>
+<a id="more"></a>
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组定义和初始化"><span class="toc-text">数组定义和初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#静态初始化"><span class="toc-text">静态初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态初始化"><span class="toc-text">动态初始化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组的使用"><span class="toc-text">数组的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深入数组"><span class="toc-text">深入数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#操作数组的工具类"><span class="toc-text">操作数组的工具类</span></a></li></ol>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>Java的数组一旦初始化后，数组在内存中所占的空间就固定下来了，即使数组中的元素被清空，数组的长度仍然不变。特别的是，数组中的元素类型必须一致！</p>
+<div class="alert info no-icon"><p>由于受到泛型的影响，数组中的元素可能会出现类型不一致的假象，但其实是一样的，因为他们的父类一定会是一致的。比如，水果数组中可能存放香蕉和苹果两种类型，但它们都是水果类型。</p>
+</div>
+<div class="alert info no-icon"><p>注意这里只是说数组的长度是不能变化的，但是数组的值还是可以变化的。</p>
+</div>
+<h1 id="数组定义和初始化"><a href="#数组定义和初始化" class="headerlink" title="数组定义和初始化"></a>数组定义和初始化</h1><p>数组(Arrays)的定义有两种方式，推荐使用第一种（作为初学者，还没有体验到为什么好，就这样写吧先）。</p>
+<p><code>Type[] arrayName</code><br><code>Type arrayName[]</code></p>
+<p>这时候，数组只是一个引用变量还没有指向任何内存空间，也不能指定长度，所以还要进行初始化。如果没有显式初始化，那么系统会自动分配初始化值。</p>
+<h2 id="静态初始化"><a href="#静态初始化" class="headerlink" title="静态初始化"></a>静态初始化</h2><p>由程序员指定初始化值，系统决定数组长度。</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">Java</li></ul></figcaption><div class="tabs-content"><figure class="highlight java" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] intArr;</span><br><span class="line">intArr = <span class="keyword">new</span> <span class="keyword">int</span>[]{<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>};</span><br><span class="line"></span><br><span class="line">Object[] objArr = <span class="keyword">new</span> String[]{<span class="string">"Yanqh"</span>,<span class="string">"Bamboo"</span>};</span><br><span class="line"></span><br><span class="line">Object[] objArr2 = {<span class="string">"Yanqh"</span>,<span class="string">"Bamboo"</span>};</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<h2 id="动态初始化"><a href="#动态初始化" class="headerlink" title="动态初始化"></a>动态初始化</h2><p>程序员指定数组长度，系统为数组元素分配初始值。</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">Java</li></ul></figcaption><div class="tabs-content"><figure class="highlight java" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] intArr2;</span><br><span class="line">intArr2 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line">Object[] objArr3 = <span class="keyword">new</span> Object[<span class="number">3</span>];</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<p>如果没有指定默认值，那么系统会分配给数组什么呢？</p>
+<div class="alert success no-icon"><p>数组中的元素为基本类型中的整型（byte，short，int，long），则初始化值为0。</p>
+</div>
+<div class="alert success no-icon"><p>数组中的元素为基本类型中的浮点型（float，double），则初始化值为0.0。</p>
+</div>
+<div class="alert success no-icon"><p>数组中的元素为基本类型中的字符型（char），则初始化值为‘\u0000’</p>
+</div>
+<div class="alert success no-icon"><p>数组中的元素为基本类型中的布尔型（boolean），则初始化值为false。</p>
+</div>
+<div class="alert success no-icon"><p>数组中的元素为基本类型中的引用类型（类，接口，数组），则初始化值为null。</p>
+</div>
+<h1 id="数组的使用"><a href="#数组的使用" class="headerlink" title="数组的使用"></a>数组的使用</h1><p>数组用length属性可以直接返回数组的长度，这样就可以遍历数组的每一个元素。</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">Java</li></ul></figcaption><div class="tabs-content"><figure class="highlight java" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; objArr.length;i++) {</span><br><span class="line">  System.out.println(objArr[i]);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<p>Java中有和Swift中for-in相同的循环foreach。<br><figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">Java</li></ul></figcaption><div class="tabs-content"><figure class="highlight java" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Object name: objArr) {</span><br><span class="line">  System.out.println(name);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div></figure></p>
+<div class="alert warning no-icon"><p>在循环体中的元素都是系统自动生成的临时变量代替，这些变量并不是指向元素对象，所以在循环体中想要修改数组元组是值是不可能的。</p>
+</div>
+<h1 id="深入数组"><a href="#深入数组" class="headerlink" title="深入数组"></a>深入数组</h1><p>数组是引用类型，数组的引用变量只是一个引用，数组元素的和数组变量是分开存放的。数组存放在堆内存中，而引用变量存放在栈内存中。</p>
+<p>如果两个数组的存储类型是相同的时候，那么它们的引用变量可以相互赋值交换，这样会形成数组长度可变的假象，记得刚开始学习OC的时候也遇到了这样的疑惑，为什么不可变字符串可以改变值呢？这并不是对象发生了改变，而是引用变量中的内存地址发生了改变，在这里是一个道理。</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">Java</li></ul></figcaption><div class="tabs-content"><figure class="highlight java" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a = {<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>};</span><br><span class="line"><span class="keyword">int</span>[] b = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">a = b;</span><br><span class="line">System.out.println(b.length);<span class="comment">//2</span></span><br></pre></td></tr></tbody></table></figure></div></figure>
+<p>不同的是，OC中不可变的数组中值也是不可变的，但Java中的数组在初始化后，元素的值还是可以改变的。</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">Java</li></ul></figcaption><div class="tabs-content"><figure class="highlight java" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a = {<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>};</span><br><span class="line">a[<span class="number">1</span>] = <span class="number">4</span>;</span><br><span class="line">System.out.println(<span class="string">"a[1] = "</span> + a[<span class="number">1</span>]);<span class="comment">//a[1] = 4</span></span><br></pre></td></tr></tbody></table></figure></div></figure>
+<h1 id="操作数组的工具类"><a href="#操作数组的工具类" class="headerlink" title="操作数组的工具类"></a>操作数组的工具类</h1><p>Java为数组提供了一些静态方法来操作数组，也就是Swift中的类方法。</p>
+<div class="alert success no-icon"><p>public static int binarySearch(Type[] a, Type key)</p>
+</div>
+<p>这个方法会查询数组a中是否包含了key这个值，如果包含，返回1，不包含返回-1，但使用是有前提的，数组a中的元素必须是可以比较的，并进行了升序排序的，不然会抛出<code>test2.translateCharToChinese cannot be cast to java.lang.Comparable</code>异常。</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">Java</li></ul></figcaption><div class="tabs-content"><figure class="highlight java" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">translateCharToChinese z = <span class="keyword">new</span> translateCharToChinese();</span><br><span class="line">translateCharToChinese h = <span class="keyword">new</span> translateCharToChinese();</span><br><span class="line">translateCharToChinese[] zh = {z,z};</span><br><span class="line"><span class="keyword">int</span>[] a = {<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>};</span><br><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> i = Arrays.binarySearch(a,<span class="number">1</span>);<span class="comment">// 1</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> i = Arrays.binarySearch(zh,z);<span class="comment">// 异常</span></span><br></pre></td></tr></tbody></table></figure></div></figure>
+<div class="alert success no-icon"><p>public static int binarySearch(int[] a, int fromIndex, int toIndex, int key)</p>
+</div>
+<p>这个方法与上一个方法相似，但可以搜索一个范围，但是要注意toIndex不包含，是一个左闭右开的区间。</p>
+<div class="alert success no-icon"><p>public static type[] copyOf(type[] original, int newLength)</p>
+</div>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">Java</li></ul></figcaption><div class="tabs-content"><figure class="highlight java" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a = {<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>};</span><br><span class="line"><span class="keyword">int</span>[] b = Arrays.copyOf(a,<span class="number">5</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> num: b) {</span><br><span class="line">  System.out.println(num);</span><br><span class="line">}<span class="comment">// 1 2 3 0 0</span></span><br></pre></td></tr></tbody></table></figure></div></figure>
+<div class="alert success no-icon"><p>public static type[] copyOfRange(type[] original, int from, int to)</p>
+</div>
+<p>这个方法也与上一个方法相似，但同样的，to是不包含的。</p>
+<div class="alert success no-icon"><p>public static boolean equals(type[] a, type[] a2) {</p>
+</div>
+<p>数组是否相同判断，必须是长度和元素都相等才会返回true。</p>
+<div class="alert success no-icon"><p>public static void fill(type[] a, type val) </p>
+</div>
+<p>把数组中的所有元素都赋值为val</p>
+<div class="alert success no-icon"><p>public static void fill(type[] a, int fromIndex, int toIndex, type val)</p>
+</div>
+<p>与上一个方法相同，但是范围也是左闭右开。</p>
+<div class="alert success no-icon"><p>public static void sort(type[] a) </p>
+</div>
+<p>对数组进行排序，但是如果是非数值类型必须实现Comparable接口。</p>
+<div class="alert success no-icon"><p>public static void sort(type[] a, int fromIndex, int toIndex)</p>
+</div>
+<p>对数组进行排序，toIndex是不包含的。</p>
+<div class="alert success no-icon"><p>public static String toString(type[] a)</p>
+</div>
+<p>将数组转换成字符串，如果是对象将输出对象的包、类名、地址。</p>
+<div class="alert success no-icon"><p>public static native void arraycopy(Object src,  int  srcPos,Object dest, int destPos,int length);</p>
+</div>
+<p>System类中的数组方法，将数组src中的元素从第srcPos开始的length个赋值到dest数组，起始位置为destPos。</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Java/">Java</a> <a class="tag tag--primary tag--small t-link" href="/tags/数组/">数组</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/12/07/Java的类和对象/"  data-tooltip="Java的类和对象">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/11/28/swift构造器/" data-tooltip="Swift的构造器的知识点">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2016/11/29/Java中的数组/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2016/11/29/Java中的数组/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2016/11/29/Java中的数组/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Yanqh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/12/07/Java的类和对象/"  data-tooltip="Java的类和对象">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/11/28/swift构造器/" data-tooltip="Swift的构造器的知识点">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2016/11/29/Java中的数组/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2016/11/29/Java中的数组/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2016/11/29/Java中的数组/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2016/11/29/Java中的数组/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2016/11/29/Java中的数组/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2016/11/29/Java中的数组/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Yanqh</h4>
+        
+            <div id="about-card-bio"><p>You don’t need to be accepted by others. You need to accept yourself.</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Elegant Coder</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Wuhan.China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/19/欲罢不能的主题：Tranquilpeak/">
+                            <h3 class="media-heading">欲罢不能的主题：Tranquilpeak</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>遇到一个好的主题实在不易，以前使用Jekyll，倒不是平台不好，但是自己没有一点点的前端知识储备，所有遇到喜欢但是功能不全的主题，总是心有余，力不足。没有好的主题，写的东西也很少，所以一直在寻找好的主题，也在计划慢慢开始学一下前端，做自己喜欢的东西出来，不为别的，只为喜欢，看得舒心。但也没有放弃寻找，终于在Hexo中找到了欲罢不能的主题：Tranquilpeak<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/27/修饰符的使用笔记/">
+                            <h3 class="media-heading">修饰符的使用笔记</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 27, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>细节决定成败，基础决定上层建筑，为了更好、更安全的代码结构，熟悉修饰符的作用是必要的。这里从Java和Swift两种语言来看修饰符的作用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/28/swift构造器/">
+                            <h3 class="media-heading">Swift的构造器的知识点</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 28, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>熟悉swift的构造器用法是必须的，这样才能写出方便、快捷、高效、强大的类。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/29/Java中的数组/">
+                            <h3 class="media-heading">Java中的数组</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 29, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Java中的数组和Swift以及OC中的数组不同，原以为会和他们一样会有可变和不可变的概念，但是并没有，那简单了？但Java身后却是一个庞大、使用的集合家族。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/12/07/Java的类和对象/">
+                            <h3 class="media-heading">Java的类和对象</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 7, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Java的类和对象与Swift的类和对象有很多东西都是差不多的，但是也有不同的地方需要注意。写在这里以后查看。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/12/15/响应者链条的原理和实践/">
+                            <h3 class="media-heading">响应者链条的原理和实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>对于响应者链，底层虽然不甚了了，但是基本的原理和实践还是要知道的。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/02/20/IOS运行时机制/">
+                            <h3 class="media-heading">IOS运行时机制</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 20, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Runtime，运行时机制，是面试时用到比较多的概念，在理解面向对象以及实际开发中也有重要的作用，这里用概念和代码的方式记录运行时机制的简单理解和应用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/24/MachineLearning-Starting/">
+                            <img class="media-image" src="http://yanqh.com/assets/images/MachineLearningStarting.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/24/MachineLearning-Starting/">
+                            <h3 class="media-heading">Machine Learning And Me</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 24, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>第一次了解到机器学习是在新闻上看到Alpha Go打败了围棋高手，那时候觉得机器会思考是一件很酷的事，也觉得离我还很遥远。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/25/MachineLearning-Week1/">
+                            <h3 class="media-heading">Machine Learning Week1</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 25, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>我对机器学习的理解是：让程序通过学习获得判断的能力，以便程序能在各种情况执行正确的操作。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/05/04/Live-YuHua/">
+                            <img class="media-image" src="http://yanqh.com/assets/images/Live_Yuhua.jpeg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/05/04/Live-YuHua/">
+                            <h3 class="media-heading">我读余华的《活着》</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    May 4, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>人为什么活着，活着是什么？</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                26 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://yanqh.com/2016/11/29/Java中的数组/';
+                 
+                    this.page.identifier = '2016/11/29/Java中的数组/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'Yanqh';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('R3K64VCLX5', '45317a68c49dfa9591ee80d5e2a3b9c0');
+        var algoliaIndex = algoliaClient.initIndex('yanqh');
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    </body>
+</html>

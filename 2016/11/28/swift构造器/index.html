@@ -1,0 +1,804 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Life and Code | Yanqh">
+    <title>Swift的构造器的知识点 - Life and Code | Yanqh</title>
+    <meta name="author" content="Yanqh">
+    
+        <meta name="keywords" content="Yanqh,Coder,swift,构造器">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="熟悉swift的构造器用法是必须的，这样才能写出方便、快捷、高效、强大的类。">
+<meta name="keywords" content="swift,构造器">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Swift的构造器的知识点">
+<meta property="og:url" content="http://yanqh.com/2016/11/28/swift构造器/index.html">
+<meta property="og:site_name" content="Life and Code | Yanqh">
+<meta property="og:description" content="熟悉swift的构造器用法是必须的，这样才能写出方便、快捷、高效、强大的类。">
+<meta property="og:updated_time" content="2017-06-26T14:55:17.122Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift的构造器的知识点">
+<meta name="twitter:description" content="熟悉swift的构造器用法是必须的，这样才能写出方便、快捷、高效、强大的类。">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Life and Code | Yanqh</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yanqh</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>You don’t need to be accepted by others. You need to accept yourself.</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/Yanqh" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Swift的构造器的知识点
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2016-11-28T00:00:00+08:00">
+	
+		    Nov 28, 2016
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Swift/">Swift</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>熟悉swift的构造器用法是必须的，这样才能写出方便、快捷、高效、强大的类。</p>
+<a id="more"></a>
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#三种构造器的含义"><span class="toc-text">三种构造器的含义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#当父类只有默认构造器"><span class="toc-text">当父类只有默认构造器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#当父类有指定构造器"><span class="toc-text">当父类有指定构造器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#子类无指定构造器"><span class="toc-text">子类无指定构造器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#子类有指定构造器"><span class="toc-text">子类有指定构造器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#便利构造器"><span class="toc-text">便利构造器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#构造器的继承"><span class="toc-text">构造器的继承</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#可失败构造器"><span class="toc-text">可失败构造器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#必须实现的构造器"><span class="toc-text">必须实现的构造器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#构造器是可以被重载的"><span class="toc-text">构造器是可以被重载的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#swift构造器的规则"><span class="toc-text">swift构造器的规则</span></a></li></ol>
+<h1 id="三种构造器的含义"><a href="#三种构造器的含义" class="headerlink" title="三种构造器的含义"></a>三种构造器的含义</h1><ul>
+<li>默认构造器：当类中的属性都有默认值，而且没有指定构造器，那么系统会隐式的创建默认构造器init()。</li>
+<li>指定构造器：指定构造器的格式为init(prama) {}，它是类构造中重要的组成部分，负责向上沿着继承链初始化，并完成所有非可选无默认属性的初始化。</li>
+<li>便利构造器：便利构造器格式为convenience init(prama) {}，它是构造器中次要的，辅助的。便利构造器中必须要调用指定构造器来完成初始化。</li>
+</ul>
+<div class="alert warning no-icon"><p>默认构造器不需要显示的调用。</p>
+</div>
+<div class="alert warning no-icon"><p>指定构造器必须调用直接父类的指定构造器（或者默认构造器）。</p>
+</div>
+<div class="alert warning no-icon"><p>便利构造器必须调用或者导向本类中的指定构造器。</p>
+</div>
+<div class="alert warning no-icon"><p>指定构造器向上代理，便利构造器横向代理。</p>
+</div>
+<div class="alert warning no-icon"><p>便利构造器不需要写override，但如果重写指定构造函数为便利构造，也需要添加override。</p>
+</div>
+<h1 id="当父类只有默认构造器"><a href="#当父类只有默认构造器" class="headerlink" title="当父类只有默认构造器"></a>当父类只有默认构造器</h1><p>子类在重写默认构造器时，不需要显式的调用默认构造器即可完成构造。</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">swift</li></ul></figcaption><div class="tabs-content"><figure class="highlight swift" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> wheels = <span class="number">4</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SportsCar</span>: <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> price: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>() {</span><br><span class="line">        price = <span class="number">1000000</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<p>如果需要重写父类的属性，必须在调用super.init()之后调用，任何属性在调用super.init()之后都可以得到重写，包括父类属性和子类属性。</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">swift</li></ul></figcaption><div class="tabs-content"><figure class="highlight swift" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> wheels = <span class="number">4</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SportsCar</span>: <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> price: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>() {</span><br><span class="line">        price = <span class="number">1000000</span></span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>()</span><br><span class="line">        price = <span class="number">123123</span></span><br><span class="line">        wheels = <span class="number">3</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<div class="alert warning no-icon"><p>子类无默认值属性必须在调用父类的构造器之前调用，如果是隐式调用父类构造器也必须要完成没有默认值属性的构造。至于之后的重写就没有必要了，因为在调用父类的构造器之前已经完成了构造值，没必要再覆盖一次。</p>
+</div>
+<h1 id="当父类有指定构造器"><a href="#当父类有指定构造器" class="headerlink" title="当父类有指定构造器"></a>当父类有指定构造器</h1><h2 id="子类无指定构造器"><a href="#子类无指定构造器" class="headerlink" title="子类无指定构造器"></a>子类无指定构造器</h2><p>当父类中有无默认值，也不是可选属性时，那么类在实例化对象的时候就必须初始化该属性。这时候就需要用到指定构造器，比如这样的init(name: Sting)，那么子类在重写的时候就不能省略父类的构造器了，而且必须要调用父类的指定构造器，调用顺序和上面默认构造器一样。</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">swift</li></ul></figcaption><div class="tabs-content"><figure class="highlight swift" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> wheels: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">init</span>(wheels: <span class="type">Int</span>) {</span><br><span class="line">        <span class="keyword">self</span>.wheels = wheels</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SportsCar</span>: <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> price: <span class="type">Double</span>?</span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(wheels: <span class="type">Int</span>) {</span><br><span class="line">        price = <span class="number">10000</span></span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(wheels: wheels)</span><br><span class="line">        <span class="keyword">self</span>.wheels = <span class="number">3</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<h2 id="子类有指定构造器"><a href="#子类有指定构造器" class="headerlink" title="子类有指定构造器"></a>子类有指定构造器</h2><p>如果子类有指定构造器，那么子类的指定构造器中必须要调用父类的指定构造器。</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">swift</li></ul></figcaption><div class="tabs-content"><figure class="highlight swift" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> wheels: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">init</span>(wheels: <span class="type">Int</span>) {</span><br><span class="line">        <span class="keyword">self</span>.wheels = wheels</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SportsCar</span>: <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> price: <span class="type">Double</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>(wheels: <span class="type">Int</span>,price: <span class="type">Double</span>) {</span><br><span class="line">        <span class="keyword">self</span>.price = price</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(wheels: wheels)</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(wheels: <span class="type">Int</span>) {</span><br><span class="line">        price = <span class="number">10000</span></span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(wheels: wheels)</span><br><span class="line">        <span class="keyword">self</span>.wheels = <span class="number">3</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<div class="alert danger no-icon"><p>如果指定了构造器，那么系统不会再隐式的创建默认构造器，这时候子类再重写父类的默认构造器是不对的。</p>
+</div>
+<h1 id="便利构造器"><a href="#便利构造器" class="headerlink" title="便利构造器"></a>便利构造器</h1><p>便利构造器依赖于指定构造器，也就是说，便利构造器只是在初始化对象后，加上了属性的修改，如果对象还没有初始化就对对象属性进行赋值操作，是不是显得太流氓了？所以这样是不对的，如果要在便利构造器中修改属性的值，必须在调用指定构造器之后调用，这样才是正确的。</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">swift</li></ul></figcaption><div class="tabs-content"><figure class="highlight swift" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> wheels: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">var</span> price: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">init</span>(wheels: <span class="type">Int</span>,price: <span class="type">Double</span>) {</span><br><span class="line">        <span class="keyword">self</span>.wheels = wheels</span><br><span class="line">        <span class="keyword">self</span>.price = price</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">convenience</span> <span class="keyword">init</span>() {</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(wheels: <span class="number">4</span>,price: <span class="number">10000</span>)</span><br><span class="line">        <span class="keyword">self</span>.price = <span class="number">111111</span></span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<p>指定构造器能被子类重写为便利构造器，但是子类如果有增加的非可选无默认的属性，那必须提供指定的构造器给便利构造器使用，需要加override。便利构造器也能被指定构造器重写为指定构造器使用，不需要加override。</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">swift</li></ul></figcaption><div class="tabs-content"><figure class="highlight swift" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> wheels: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">init</span>(wheels: <span class="type">Int</span>) {</span><br><span class="line">        <span class="keyword">self</span>.wheels = wheels</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">convenience</span> <span class="keyword">init</span>() {</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(wheels: <span class="number">4</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SuperCar</span>: <span class="title">Car</span> </span>{</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> price: <span class="type">Double</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>(wheels: <span class="type">Int</span>,price: <span class="type">Double</span>) {</span><br><span class="line">        <span class="keyword">self</span>.price = price</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(wheels: wheels)</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 指定构造器被重写为便利构造</span></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(wheels: <span class="type">Int</span>) {</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(wheels: wheels,price: <span class="number">10000</span>)</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 便利构造器被重写为指定构造器</span></span><br><span class="line">    <span class="keyword">init</span>() {</span><br><span class="line">        <span class="keyword">self</span>.price = <span class="number">1000</span></span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(wheels: <span class="number">4</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<h1 id="构造器的继承"><a href="#构造器的继承" class="headerlink" title="构造器的继承"></a>构造器的继承</h1><p>如果子类没有实现任何指定构造器，当然也不可能实现便利构造器，那么子类将继承父类所有的指定构造器和便利构造器。<br>如果子类实现了所有的父类构造器，不论是继承还是手写实现，那么子类也会获得所有的便利构造器。</p>
+<h1 id="可失败构造器"><a href="#可失败构造器" class="headerlink" title="可失败构造器"></a>可失败构造器</h1><p>可失败构造器的格式：<br><figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">swift</li></ul></figcaption><div class="tabs-content"><figure class="highlight swift" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> wheels: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">init</span>?(wheels: <span class="type">Int</span>) {</span><br><span class="line">        <span class="keyword">if</span> wheels &lt; <span class="number">4</span> {</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">self</span>.wheels = wheels</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SuperCar</span>: <span class="title">Car</span> </span>{</span><br><span class="line">    </span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> car = <span class="type">Car</span>(wheels: <span class="number">4</span>) <span class="keyword">else</span> {</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(car.wheels)</span><br></pre></td></tr></tbody></table></figure></div></figure></p>
+<div class="alert warning no-icon"><p>可失败构造器可以被重写为不可失败构造器，但不可失败构造器不能被重写为可失败构造器。</p>
+</div>
+<div class="alert warning no-icon"><p>可失败构造器参数名和类型都不能与指定构造器的参数名和类型相同。</p>
+</div>
+<h1 id="必须实现的构造器"><a href="#必须实现的构造器" class="headerlink" title="必须实现的构造器"></a>必须实现的构造器</h1><p>当指定构造器被required修饰的时候，子类必须实现该构造方法，但不用再添加override。如果子类中没有任何构造器，那么将自动继承required修饰的父类构造器，否则必须手写实现。<br><figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">swift</li></ul></figcaption><div class="tabs-content"><figure class="highlight swift" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> wheels: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>(wheels: <span class="type">Int</span>) {</span><br><span class="line">        <span class="keyword">self</span>.wheels = wheels</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SuperCar</span>: <span class="title">Car</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> price: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>(wheels: <span class="type">Int</span>) {</span><br><span class="line">        <span class="keyword">self</span>.price = <span class="number">10000</span></span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(wheels: wheels)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div></figure></p>
+<h1 id="构造器是可以被重载的"><a href="#构造器是可以被重载的" class="headerlink" title="构造器是可以被重载的"></a>构造器是可以被重载的</h1><p>swift的构造器是可以重载的，与Java不同的是，如果参数都一样，返回值不一样，也可以实现重载，但是Java的重载只与参数有关，与返回值无关。</p>
+<h1 id="swift构造器的规则"><a href="#swift构造器的规则" class="headerlink" title="swift构造器的规则"></a>swift构造器的规则</h1><ul>
+<li>指定构造器必须保证它所在类引入的所有属性都必须初始化完成，之后才能调用父类的构造器完成其他构造任务。</li>
+<li>指定构造器必须调用父类构造器，然后为继承的属性设置新值。如果没有这样做，那么指定构造器赋予的新值将会被父类中的构造器所覆盖。</li>
+<li>便利构造器必须向调用本类中的其他指定构造器，然后再为任意属性赋新的值。如果这样的操作，那么遍历构造器赋予的新值将覆盖指定构造器中的值。</li>
+<li>构造器在初始化构造完成之前，不能调用任何实例方法，也不能读取任何实例属性的值，且self的值不能被引用。</li>
+</ul>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Swift/">Swift</a> <a class="tag tag--primary tag--small t-link" href="/tags/构造器/">构造器</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/11/29/Java中的数组/"  data-tooltip="Java中的数组">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/11/27/修饰符的使用笔记/" data-tooltip="修饰符的使用笔记">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2016/11/28/swift构造器/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2016/11/28/swift构造器/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2016/11/28/swift构造器/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Yanqh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/11/29/Java中的数组/"  data-tooltip="Java中的数组">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/11/27/修饰符的使用笔记/" data-tooltip="修饰符的使用笔记">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2016/11/28/swift构造器/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2016/11/28/swift构造器/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2016/11/28/swift构造器/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2016/11/28/swift构造器/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2016/11/28/swift构造器/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2016/11/28/swift构造器/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Yanqh</h4>
+        
+            <div id="about-card-bio"><p>You don’t need to be accepted by others. You need to accept yourself.</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Elegant Coder</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Wuhan.China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/19/欲罢不能的主题：Tranquilpeak/">
+                            <h3 class="media-heading">欲罢不能的主题：Tranquilpeak</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>遇到一个好的主题实在不易，以前使用Jekyll，倒不是平台不好，但是自己没有一点点的前端知识储备，所有遇到喜欢但是功能不全的主题，总是心有余，力不足。没有好的主题，写的东西也很少，所以一直在寻找好的主题，也在计划慢慢开始学一下前端，做自己喜欢的东西出来，不为别的，只为喜欢，看得舒心。但也没有放弃寻找，终于在Hexo中找到了欲罢不能的主题：Tranquilpeak<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/27/修饰符的使用笔记/">
+                            <h3 class="media-heading">修饰符的使用笔记</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 27, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>细节决定成败，基础决定上层建筑，为了更好、更安全的代码结构，熟悉修饰符的作用是必要的。这里从Java和Swift两种语言来看修饰符的作用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/28/swift构造器/">
+                            <h3 class="media-heading">Swift的构造器的知识点</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 28, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>熟悉swift的构造器用法是必须的，这样才能写出方便、快捷、高效、强大的类。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/29/Java中的数组/">
+                            <h3 class="media-heading">Java中的数组</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 29, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Java中的数组和Swift以及OC中的数组不同，原以为会和他们一样会有可变和不可变的概念，但是并没有，那简单了？但Java身后却是一个庞大、使用的集合家族。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/12/07/Java的类和对象/">
+                            <h3 class="media-heading">Java的类和对象</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 7, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Java的类和对象与Swift的类和对象有很多东西都是差不多的，但是也有不同的地方需要注意。写在这里以后查看。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/12/15/响应者链条的原理和实践/">
+                            <h3 class="media-heading">响应者链条的原理和实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>对于响应者链，底层虽然不甚了了，但是基本的原理和实践还是要知道的。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/02/20/IOS运行时机制/">
+                            <h3 class="media-heading">IOS运行时机制</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 20, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Runtime，运行时机制，是面试时用到比较多的概念，在理解面向对象以及实际开发中也有重要的作用，这里用概念和代码的方式记录运行时机制的简单理解和应用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/24/MachineLearning-Starting/">
+                            <img class="media-image" src="http://yanqh.com/assets/images/MachineLearningStarting.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/24/MachineLearning-Starting/">
+                            <h3 class="media-heading">Machine Learning And Me</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 24, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>第一次了解到机器学习是在新闻上看到Alpha Go打败了围棋高手，那时候觉得机器会思考是一件很酷的事，也觉得离我还很遥远。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/25/MachineLearning-Week1/">
+                            <h3 class="media-heading">Machine Learning Week1</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 25, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>我对机器学习的理解是：让程序通过学习获得判断的能力，以便程序能在各种情况执行正确的操作。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/05/04/Live-YuHua/">
+                            <img class="media-image" src="http://yanqh.com/assets/images/Live_Yuhua.jpeg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/05/04/Live-YuHua/">
+                            <h3 class="media-heading">我读余华的《活着》</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    May 4, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>人为什么活着，活着是什么？</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                26 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://yanqh.com/2016/11/28/swift构造器/';
+                 
+                    this.page.identifier = '2016/11/28/swift构造器/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'Yanqh';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('R3K64VCLX5', '45317a68c49dfa9591ee80d5e2a3b9c0');
+        var algoliaIndex = algoliaClient.initIndex('yanqh');
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    </body>
+</html>

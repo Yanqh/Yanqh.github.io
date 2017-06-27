@@ -1,0 +1,817 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Life and Code | Yanqh">
+    <title>Machine Learning Week5 - Life and Code | Yanqh</title>
+    <meta name="author" content="Yanqh">
+    
+        <meta name="keywords" content="Yanqh,Coder,Machine Learning,Neural Networks">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="上一周学习了神经网络的基本概念和公式，这一周将学习神经网络的应用实例。">
+<meta name="keywords" content="Machine Learning,Neural Networks">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Machine Learning Week5">
+<meta property="og:url" content="http://yanqh.com/2017/05/11/Machine-Learning-Week5/index.html">
+<meta property="og:site_name" content="Life and Code | Yanqh">
+<meta property="og:description" content="上一周学习了神经网络的基本概念和公式，这一周将学习神经网络的应用实例。">
+<meta property="og:image" content="http://yanqh.com/assets/images/NeuralNetworkBackpropagationAlgorithm.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/NeuralNetWorkBackIntuition.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/NeuralNetworkUnrollingParameters.png">
+<meta property="og:image" content="http://yanqh.com/assets/images/NeuralNetworkRandom.png">
+<meta property="og:updated_time" content="2017-06-26T14:55:17.118Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Machine Learning Week5">
+<meta name="twitter:description" content="上一周学习了神经网络的基本概念和公式，这一周将学习神经网络的应用实例。">
+<meta name="twitter:image" content="http://yanqh.com/assets/images/NeuralNetworkBackpropagationAlgorithm.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Life and Code | Yanqh</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Yanqh</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>You don’t need to be accepted by others. You need to accept yourself.</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/Yanqh" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Machine Learning Week5
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-05-11T19:16:58+08:00">
+	
+		    May 11, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>上一周学习了神经网络的基本概念和公式，这一周将学习神经网络的应用实例。</p>
+<a id="more"></a>
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#添加几个概念"><span class="toc-text">添加几个概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代价函数"><span class="toc-text">代价函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#反向传播算法（Backpropagation-Algorithm）"><span class="toc-text">反向传播算法（Backpropagation Algorithm）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用步骤"><span class="toc-text">使用步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#直观理解"><span class="toc-text">直观理解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解包参数（Unrolling-Parameters）"><span class="toc-text">解包参数（Unrolling Parameters）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#包装做法"><span class="toc-text">包装做法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解包做法"><span class="toc-text">解包做法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用过程"><span class="toc-text">使用过程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#梯度检查（Gradient-Checking）"><span class="toc-text">梯度检查（Gradient Checking）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#随机初始化（Random-Initialization）"><span class="toc-text">随机初始化（Random Initialization）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结一下"><span class="toc-text">总结一下</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#训练过程"><span class="toc-text">训练过程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本周总结"><span class="toc-text">本周总结</span></a></li></ol>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h1 id="添加几个概念"><a href="#添加几个概念" class="headerlink" title="添加几个概念"></a>添加几个概念</h1><p>上一周的学习中已经用到了这几个概念，在这里在记录一下：</p>
+<ul>
+<li>L 表示神经网络的层数</li>
+<li>\(s_l\) 表示 \(l^{th}\) 层的单元个数（不包含偏置单元）</li>
+<li>K 表示输出单元的个数</li>
+</ul>
+<h1 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h1><p>在神经网络中，输出层的个数可能不只一个，所以定义 \({h_\Theta(x)}_k\) 来表示 \(k^{th}\) 的输出，那么代价函数的公式为：<br>$$\begin{gather} J(\Theta) = - \frac{1}{m} \sum_{i=1}^m \sum_{k=1}^K \left[y^{(i)}_k \log ((h_\Theta (x^{(i)}))_k) + (1 - y^{(i)}_k)\log (1 - (h_\Theta(x^{(i)}))_k)\right] + \frac{\lambda}{2m}\sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_{l+1}} ( \Theta_{j,i}^{(l)})^2\end{gather}$$</p>
+<div class="alert warning no-icon"><p>这里正则部分要从 \(\Theta\) 的幅度来理解，三个求和公式可以看做是三个循环，先循环每一层，然后循环每一个单元，注意这里的 \(i\) 并不是指的训练集的个数，而是由本层的单元个数决定的，即为 \(s_l\)（这里是包含偏置单元的，所以在计算的时候要注意去掉），再循环参数的个数，而参数的个数是有下一层的单元个数决定的，即为 \(s_{l+1}\)（这里是不包含偏置单元的）。</p>
+</div>
+<h1 id="反向传播算法（Backpropagation-Algorithm）"><a href="#反向传播算法（Backpropagation-Algorithm）" class="headerlink" title="反向传播算法（Backpropagation Algorithm）"></a>反向传播算法（Backpropagation Algorithm）</h1><h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><p>反向传播算法是神经网络用来最优化代价函数的算法。下面主要介绍它的使用过程：</p>
+<ul>
+<li>对于 \(m\) 组训练集 \(\lbrace (x^{(1)}, y^{(1)}) \cdots (x^{(m)}, y^{(m)})\rbrace\)<ul>
+<li>对所有的 \((l, i, j)\) 设置 \(\Delta^{(l)}_{i,j}\)，那么我们就有了一个全为0的矩阵。</li>
+</ul>
+</li>
+<li>设置循环 \(t = 1 : m\)<ul>
+<li>设置 \(a^{(1)} := x^{(t)}\)</li>
+<li>执行正向传播计算 \(a^{(l)} \text{  } l = 2, 3, \dots , L\) ,计算过程见下图1。</li>
+<li>使用 \(y^{(t)}\) 计算出输出层的误差值（或者叫：敏感度）：<br>$$\delta^{(L)} = a^{(L)} - y^{(t)}$$</li>
+<li>从右向左计算出每一层的误差值：\(\delta^{(L-1)}, \delta^{(L-2)},\dots,\delta^{(2)}\)：$$\delta^{(l)} = ((\Theta^{(l)})^T \delta^{(l+1)}) .* a^{(l)} .* (1 - a^{(l)})$$ 这里的 \(a^{(l)} .* (1 - a^{(l)}\) 可以用S型函数来计算：$$g’(z^{(l)}) = a^{(l)} .* (1 - a^{(l)}) = g(z^{(1)}) .* (1-g(z^{(1)}))$$</li>
+<li>计算每层的 \(\Delta^{l}\)：$$\Delta^{(l)}_{i,j} := \Delta^{(l)}_{i,j} + a_j^{(l)} \delta_i^{(l+1)}$$ 也可以使用向量化：$$\Delta^{(l)} := \Delta^{(l)} + \delta^{(l+1)}(a^{(l)})^T$$ 因此，可计算新的 \(\Delta\) 矩阵：$$\begin{align} D^{(l)}_{i,j} &amp; := \dfrac{1}{m}\Delta^{(l)}_{i,j} &amp;\text {当 } j = 0 \newline D^{(l)}_{i,j} &amp; := \dfrac{1}{m}\left(\Delta^{(l)}_{i,j} + \lambda\Theta^{(l)}_{i,j}\right)&amp;\text{当 } j \neq 0  \end{align}$$ D矩阵包含了每一层的每个单元 \(\vec\theta\)。</div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/NeuralNetworkBackpropagationAlgorithm.png" alt="图1,来自Coursera"><span class="caption">图1,来自Coursera</span></div><div class="main-content-wrap">
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="直观理解"><a href="#直观理解" class="headerlink" title="直观理解"></a>直观理解</h2><div class="alert danger no-icon"><p>虽然教授在视频中对反向传播做了详细的讲解，但我还是没有明白，只能先记录下来，如下图：</p>
+</div>
+</div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/NeuralNetWorkBackIntuition.png" alt="图1,来自Coursera"><span class="caption">图1,来自Coursera</span></div><div class="main-content-wrap">
+<h1 id="解包参数（Unrolling-Parameters）"><a href="#解包参数（Unrolling-Parameters）" class="headerlink" title="解包参数（Unrolling Parameters）"></a>解包参数（Unrolling Parameters）</h1><p>在神经网络中，我们操作的是 \(\Theta\) 矩阵，或者叫 \(D\) 矩阵：$$\begin{align} \Theta^{(1)}, \Theta^{(2)}, \Theta^{(3)}, \dots \newline D^{(1)}, D^{(2)}, D^{(3)}, \dots \end{align}$$ 所以如果传入的是一个长的向量，而使用最优化函数<strong>fminunc()</strong>的时候，那么我们就要先包装，然后解包传出。</p>
+<h2 id="包装做法"><a href="#包装做法" class="headerlink" title="包装做法"></a>包装做法</h2><figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">Octave</li></ul></figcaption><div class="tabs-content"><figure class="highlight plain" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Theta1 = reshape(thetaVector(1:110),10,11)</span><br><span class="line">Theta2 = reshape(thetaVector(111:220),10,11)</span><br><span class="line">Theta3 = reshape(thetaVector(221:231),1,11)</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<h2 id="解包做法"><a href="#解包做法" class="headerlink" title="解包做法"></a>解包做法</h2><p>如果 \(\Theta^{(1)}\) 的维度为  \(10 \times 11 \)，\(\Theta^{(2)}\) 的维度为  \(10 \times 11 \)，\(\Theta^{(3)}\) 的维度为  \(1 \times 11 \)，那么解包为：<br><figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">Octave</li></ul></figcaption><div class="tabs-content"><figure class="highlight plain" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Theta1 = reshape(thetaVector(1:110),10,11)</span><br><span class="line">Theta2 = reshape(thetaVector(111:220),10,11)</span><br><span class="line">Theta3 = reshape(thetaVector(221:231),1,11)</span><br></pre></td></tr></tbody></table></figure></div></figure></p>
+<h2 id="使用过程"><a href="#使用过程" class="headerlink" title="使用过程"></a>使用过程</h2><p>那么完整的过程如下图：<br></div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/NeuralNetworkUnrollingParameters.png" alt="图1,来自Coursera"><span class="caption">图1,来自Coursera</span></div><div class="main-content-wrap"></p>
+<h1 id="梯度检查（Gradient-Checking）"><a href="#梯度检查（Gradient-Checking）" class="headerlink" title="梯度检查（Gradient Checking）"></a>梯度检查（Gradient Checking）</h1><p>梯度检查可以检验反向传播是否正确，可以近似的算出代价方程的值：<br>$$\dfrac{\partial}{\partial\Theta}J(\Theta) \approx \dfrac{J(\Theta + \epsilon) - J(\Theta - \epsilon)}{2\epsilon}$$ 如果展开 \(\Theta\) 使用 \(\Theta_j\) 来代替的话，我们将得到这样的方程：$$\dfrac{\partial}{\partial\Theta_j}J(\Theta) \approx \dfrac{J(\Theta_1, \dots, \Theta_j + \epsilon, \dots, \Theta_n) - J(\Theta_1, \dots, \Theta_j - \epsilon, \dots, \Theta_n)}{2\epsilon}$$<br>我们应该选择一个合适的 \(\epsilon\)，比如 \(\epsilon = 10^{-4}\)，那么我们可以在<strong>Octave</strong>上这么实现：<br><figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">Octave</li></ul></figcaption><div class="tabs-content"><figure class="highlight plain" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">epsilon = 1e-4;</span><br><span class="line">for i = 1:n,</span><br><span class="line">    thetaPlus = theta;</span><br><span class="line">    thetaPlus(i) += epsilon;</span><br><span class="line">    thetaMinus = theta;</span><br><span class="line">    thetaMinus(i) -= epsilon;</span><br><span class="line">    gradApprox(i) = (J(thetaPlus) - J(thetaMinus))/(2*epsilon)</span><br><span class="line">end;</span><br></pre></td></tr></tbody></table></figure></div></figure></p>
+<p>如果反向传播的算法是正确的，那么我们会得到：\(gradApprox \approx deltaVector\)。如果验证之后要删除梯度检查的代码，没必要每次都运行，因为这非常耗费性能。</p>
+<h1 id="随机初始化（Random-Initialization）"><a href="#随机初始化（Random-Initialization）" class="headerlink" title="随机初始化（Random Initialization）"></a>随机初始化（Random Initialization）</h1><p>初始化所有的权重为0会神经网络不起作用，因为得到的下一层的单元将一模一样，这样无论我们设计了多少层其实都只有一个单元，因为它们的值是一样的。所以在初始化的时候，我们可以在一定的范围随机的生成一些数据：<br></div><div class="figure figure--fullWidth"><img class="figure-img" src="http://yanqh.com/assets/images/NeuralNetworkRandom.png" alt="图1,来自Coursera"><span class="caption">图1,来自Coursera</span></div><div class="main-content-wrap"><br>这样我们可以得到 \([-\epsilon,\epsilon]\) 的值，在<strong>Octave</strong>中我们可以这样做：<br><figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">Octave</li></ul></figcaption><div class="tabs-content"><figure class="highlight plain" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">## If the dimensions of Theta1 is 10x11, Theta2 is 10x11 and Theta3 is 1x11.</span><br><span class="line">Theta1 = rand(10,11) * (2 * INIT_EPSILON) - INIT_EPSILON;</span><br><span class="line">Theta2 = rand(10,11) * (2 * INIT_EPSILON) - INIT_EPSILON;</span><br><span class="line">Theta3 = rand(1,11) * (2 * INIT_EPSILON) - INIT_EPSILON;</span><br></pre></td></tr></tbody></table></figure></div></figure></p>
+<h1 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h1><p>当做一个使用神经网络算法的机器学习时，我们先要布局我们的神经网络：有多少层，每个隐藏层有多少神经单元等等，以及已下：</p>
+<ul>
+<li>输入层的单元个数：特征量 \(x^{(i)}\) 的维度</li>
+<li>输出层的单元个数：分类数量</li>
+<li>每个隐藏层的单元个数：通常是越多越好，但要符合硬件的计算量</li>
+<li>默认：一个隐藏单元，如果有多个，推荐每个隐藏层的单元个数保持一致</li>
+</ul>
+<h2 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h2><ol>
+<li>使用随机数生成权重（参数）</li>
+<li>实现前向传播获得每个 \(x^(i)\) 所对应的 \(h_{\Theta}(x^{(i)})\)</li>
+<li>实现代价函数</li>
+<li>实现后向传播计算局部的误差值</li>
+<li>使用梯度检查验证后向传播的正确性，然后删除梯度检查的代码</li>
+<li>使用梯度下降或者內建的最优化函数最小化代价函数，得到最优参数</li>
+</ol>
+<h1 id="本周总结"><a href="#本周总结" class="headerlink" title="本周总结"></a>本周总结</h1><p>这一周和上一周学习了神经网络的相关知识，虽然写的时候似乎明白一些，不像以前那么懵了，还是要继续巩固理解。</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Machine-Learning/">Machine Learning</a> <a class="tag tag--primary tag--small t-link" href="/tags/Neural-Networks/">Neural Networks</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/05/31/MachineLearning-Week6/"  data-tooltip="Machine Learning Week6">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/05/11/Machine-Learning-Week4/" data-tooltip="Machine Learning Week4">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2017/05/11/Machine-Learning-Week5/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2017/05/11/Machine-Learning-Week5/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2017/05/11/Machine-Learning-Week5/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Yanqh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/05/31/MachineLearning-Week6/"  data-tooltip="Machine Learning Week6">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/05/11/Machine-Learning-Week4/" data-tooltip="Machine Learning Week4">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2017/05/11/Machine-Learning-Week5/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2017/05/11/Machine-Learning-Week5/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2017/05/11/Machine-Learning-Week5/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yanqh.com/2017/05/11/Machine-Learning-Week5/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yanqh.com/2017/05/11/Machine-Learning-Week5/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yanqh.com/2017/05/11/Machine-Learning-Week5/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/19692554?v=3&amp;s=460" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Yanqh</h4>
+        
+            <div id="about-card-bio"><p>You don’t need to be accepted by others. You need to accept yourself.</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Elegant Coder</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Wuhan.China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/19/欲罢不能的主题：Tranquilpeak/">
+                            <h3 class="media-heading">欲罢不能的主题：Tranquilpeak</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>遇到一个好的主题实在不易，以前使用Jekyll，倒不是平台不好，但是自己没有一点点的前端知识储备，所有遇到喜欢但是功能不全的主题，总是心有余，力不足。没有好的主题，写的东西也很少，所以一直在寻找好的主题，也在计划慢慢开始学一下前端，做自己喜欢的东西出来，不为别的，只为喜欢，看得舒心。但也没有放弃寻找，终于在Hexo中找到了欲罢不能的主题：Tranquilpeak<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/27/修饰符的使用笔记/">
+                            <h3 class="media-heading">修饰符的使用笔记</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 27, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>细节决定成败，基础决定上层建筑，为了更好、更安全的代码结构，熟悉修饰符的作用是必要的。这里从Java和Swift两种语言来看修饰符的作用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/28/swift构造器/">
+                            <h3 class="media-heading">Swift的构造器的知识点</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 28, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>熟悉swift的构造器用法是必须的，这样才能写出方便、快捷、高效、强大的类。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/11/29/Java中的数组/">
+                            <h3 class="media-heading">Java中的数组</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 29, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Java中的数组和Swift以及OC中的数组不同，原以为会和他们一样会有可变和不可变的概念，但是并没有，那简单了？但Java身后却是一个庞大、使用的集合家族。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/12/07/Java的类和对象/">
+                            <h3 class="media-heading">Java的类和对象</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 7, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Java的类和对象与Swift的类和对象有很多东西都是差不多的，但是也有不同的地方需要注意。写在这里以后查看。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2016/12/15/响应者链条的原理和实践/">
+                            <h3 class="media-heading">响应者链条的原理和实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>对于响应者链，底层虽然不甚了了，但是基本的原理和实践还是要知道的。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/02/20/IOS运行时机制/">
+                            <h3 class="media-heading">IOS运行时机制</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 20, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Runtime，运行时机制，是面试时用到比较多的概念，在理解面向对象以及实际开发中也有重要的作用，这里用概念和代码的方式记录运行时机制的简单理解和应用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/24/MachineLearning-Starting/">
+                            <img class="media-image" src="http://yanqh.com/assets/images/MachineLearningStarting.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/24/MachineLearning-Starting/">
+                            <h3 class="media-heading">Machine Learning And Me</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 24, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>第一次了解到机器学习是在新闻上看到Alpha Go打败了围棋高手，那时候觉得机器会思考是一件很酷的事，也觉得离我还很遥远。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/04/25/MachineLearning-Week1/">
+                            <h3 class="media-heading">Machine Learning Week1</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 25, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>我对机器学习的理解是：让程序通过学习获得判断的能力，以便程序能在各种情况执行正确的操作。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/05/04/Live-YuHua/">
+                            <img class="media-image" src="http://yanqh.com/assets/images/Live_Yuhua.jpeg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yanqh.com/2017/05/04/Live-YuHua/">
+                            <h3 class="media-heading">我读余华的《活着》</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    May 4, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>人为什么活着，活着是什么？</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                26 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://yanqh.com/2017/05/11/Machine-Learning-Week5/';
+                 
+                    this.page.identifier = '2017/05/11/Machine-Learning-Week5/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'Yanqh';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('R3K64VCLX5', '45317a68c49dfa9591ee80d5e2a3b9c0');
+        var algoliaIndex = algoliaClient.initIndex('yanqh');
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    </body>
+</html>
